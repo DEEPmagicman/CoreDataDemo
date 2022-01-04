@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CDLastMessage" representedClassName="CDLastMessage" syncable="YES" codeGenerationType="class">
+        <attribute name="createdAt" optional="YES" attributeType="String"/>
+        <attribute name="from" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="message" optional="YES" attributeType="String"/>
+        <attribute name="room" optional="YES" attributeType="String"/>
+        <relationship name="toRoom" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="CDRoom" inverseName="toLastMessage" inverseEntity="CDRoom"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="CDMedia" representedClassName="CDMedia" syncable="YES" codeGenerationType="class">
+        <attribute name="file" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="owner" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="publicUrl" optional="YES" attributeType="String"/>
+        <attribute name="thumbnail" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <relationship name="toMember" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="CDMember"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="CDMember" representedClassName="CDMember" syncable="YES" codeGenerationType="class">
+        <attribute name="firstName" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lastName" attributeType="String"/>
+        <relationship name="toMedia" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="CDMedia"/>
+        <relationship name="toRoom" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="CDRoom" inverseName="toMembers" inverseEntity="CDRoom"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="CDMessage" representedClassName="CDMessage" syncable="YES" codeGenerationType="class">
+        <attribute name="createdAt" attributeType="String"/>
+        <attribute name="from" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="message" attributeType="String"/>
+        <attribute name="readStatus" optional="YES" attributeType="String"/>
+        <attribute name="room" attributeType="String"/>
+        <attribute name="roomId" attributeType="String"/>
+        <attribute name="type" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="CDRoom" representedClassName="CDRoom" syncable="YES" codeGenerationType="class">
+        <attribute name="activityDate" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="roomId" attributeType="String"/>
+        <attribute name="roomName" attributeType="String"/>
+        <attribute name="unreadMsgCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="toLastMessage" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="CDLastMessage" inverseName="toRoom" inverseEntity="CDLastMessage"/>
+        <relationship name="toMembers" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="CDMember" inverseName="toRoom" inverseEntity="CDMember"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <elements>
+        <element name="CDMessage" positionX="-54" positionY="-9" width="128" height="149"/>
+        <element name="CDRoom" positionX="-36" positionY="72" width="128" height="134"/>
+        <element name="CDMember" positionX="-18" positionY="108" width="128" height="104"/>
+        <element name="CDMedia" positionX="0" positionY="126" width="128" height="134"/>
+        <element name="CDLastMessage" positionX="18" positionY="153" width="128" height="119"/>
+    </elements>
+</model>
